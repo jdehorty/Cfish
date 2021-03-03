@@ -261,7 +261,7 @@ INLINE Score evaluate_piece(const Pos *pos, EvalInfo *ei, Score *mobility,
     ei->attackedBy[Us][0] |= b;
     ei->attackedBy[Us][Pt] |= b;
 
-    if (b & ei->kingRing[Them]) {
+    if (b & ei->kingRing[Them] & ~double_pawn_attacks_bb(pieces_cp(Them, PAWN), Them)) {
       ei->kingAttackersCount[Us]++;
       ei->kingAttackersWeight[Us] += KingAttackWeights[Pt];
       ei->kingAttacksCount[Us] += popcount(b & ei->attackedBy[Them][KING]);
